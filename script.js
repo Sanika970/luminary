@@ -3,7 +3,6 @@ const $=id=>document.getElementById(id), RM=matchMedia("(prefers-reduced-motion:
 const CODES="RIASEC".split(""), STR=["PCM","PCB","Commerce","Humanities"];
 const META={R:["Realistic","Builder","🛠️","#ff8a5b"],I:["Investigative","Thinker","🔬","#5bc8ff"],A:["Artistic","Creator","🎨","#ff6bd6"],S:["Social","Helper","🤝","#7cf5c0"],E:["Enterprising","Persuader","🚀","#ffd166"],C:["Conventional","Organiser","🗂️","#b49bff"]};
 const FACE=["😖","🙁","😐","🙂","🤩"], LBL=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
-// [code, Class 9–10 wording, Class 11–12 wording]
 const Q=[
 ["R","Your phone breaks. You’re curious to open it up and see what’s inside.","You’d enjoy a project where you build or repair something real, like a circuit or a bike."],
 ["I","A science puzzle has no answer in the book. You keep digging until you crack it.","You’d enjoy analysing data to find out why something happens."],
@@ -17,7 +16,6 @@ const Q=[
 ["S","You enjoy explaining a tough topic to friends until they get it.","You’d enjoy a career helping people with health, learning or problems."],
 ["E","In group projects you naturally take charge and make the plan.","You’d enjoy leading a team toward a target."],
 ["C","You double-check your answers and like clear rules and steps.","You’d enjoy work with clear procedures, numbers and accuracy."]];
-// [name, req ("" any, M=PCM, B=PCB, C=Commerce), why]. Every code keeps ≥5 "any" careers.
 const CAR={
 R:[["Electrician / Solar Technician","","You like fixing real stuff and seeing it work."],["Mechanical Engineer","M","You want to know how machines tick, then build better ones."],["Chef","","Hands-on, fast, and you see people enjoy your work."],["Agri-tech Specialist","B","Plants, soil and tech: outdoors with a purpose."],["Sports Coach","","Training bodies in the open air beats sitting still."],["Drone Technician","","Gadgets that fly, and you make them work."],["Furniture Maker","","Turning raw wood into something useful."]],
 I:[["Psychologist","","You keep asking why people do what they do."],["Data Scientist","M","Patterns hide in numbers, and you love finding them."],["Economist","","You want to know why prices and jobs change."],["Biotechnologist","B","Solving puzzles inside living cells."],["Investigative Journalist","","You dig until the truth shows up."],["Forensic Analyst","","Clues, evidence and a case to crack."],["Market Researcher","","You find out what people really want."]],
@@ -40,10 +38,8 @@ let S={g:0,st:"",a:[],i:0};
 const app=$("app");
 function show(h){document.body.classList.remove("so");app.innerHTML='<div class="view">'+h+"</div>";scrollTo({top:0,behavior:RM?"auto":"smooth"})}
 function score(a){const sc={},mx={};CODES.forEach(c=>{sc[c]=0;mx[c]=0});Q.forEach((q,i)=>{sc[q[0]]+=a[i];mx[q[0]]=Math.max(mx[q[0]],a[i])});
- // higher total, then stronger single answer, then fixed order R I A S E C
  return{sc,mx,r:[...CODES].sort((x,y)=>sc[y]-sc[x]||mx[y]-mx[x]||CODES.indexOf(x)-CODES.indexOf(y))}}
 const picks=c=>S.g<11?CAR[c].slice(0,5):CAR[c].filter(x=>open(x[1],S.st)).slice(0,5);
-/* ---------- screens ---------- */
 function welcome(){S={g:0,st:"",a:[],i:0};history.replaceState(null,"",location.pathname);
  show(`<div class="orbit"><div class="core"></div><i></i>${CODES.map((c,k)=>`<span style="--i:${k}">${META[c][2]}</span>`).join("")}</div>
  <h1>There are far more futures than the ones you’ve heard about.</h1>
